@@ -13,27 +13,36 @@
 <body>
 
     <h2>Task Management - UPDATE TASK</h2>
+    <div class="inline-block">
 
-    <form method="post">
-        <input type="hidden" name="task_id" value="{{ task['id'] if task else 0 }}">
-
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" value="{{ task['title'] if task else '' }}" required>
-
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" required>{{ task['description_'] if task else '' }}</textarea>
-
-        <label for="progress">Progress:</label>
+        <form method="post">
+            <input type="hidden" name="task_id" value="{{ task['id'] if task else 0 }}">
+            
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" value="{{ task['title'] if task else '' }}" required>
+            
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required>{{ task['description_'] if task else '' }}</textarea>
+            
+            <label for="progress">Progress:</label>
         <select id="progress" name="progress" required>
             <option value="Pending" {% if task and task['status'] == 'Pending' %}selected{% endif %}>Pending</option>
             <option value="In Progress" {% if task and task['status'] == 'In Progress' %}selected{% endif %}>In Progress</option>
             <option value="Completed" {% if task and task['status'] == 'Completed' %}selected{% endif %}>Completed</option>
         </select>
+            
+            <label for="due_date">Due Date:</label>
+            <input type="date" id="due_date" name="due_date" value="{{ task['due_date'] if task else '' }}" required>
+            <button class="blue-button" type="submit">{{ 'Update Task' if task else 'Register Task' }}</button>
+        </form>
+    </div>
+    
+    <div class="inline-block">
+        <form action="{{ url_for('task.delete', id=task['id']) }}" method="post">
+            <input class="red-button" type="submit" value="Delete Task" onclick="return confirm('Are you sure?');">
+        </form>
+    </div>
 
-        <label for="due_date">Due Date:</label>
-        <input type="date" id="due_date" name="due_date" value="{{ task['due_date'] if task else '' }}" required>
-        <button type="submit">{{ 'Update Task' if task else 'Register Task' }}</button>
-    </form>
 
     <h3>Task List</h3>
     <ul>
@@ -44,3 +53,29 @@
 
 </body>
 </html>
+
+<style>
+.inline-block {
+  display: inline-block;
+}
+
+.blue-button {
+  background-color: #0073b7;
+  color: white; /* Optional: Set text color to white for better contrast */
+  padding: 5px 10px; /* Optional: Adjust padding for better appearance */
+  border: none; /*Optional: Remove border for a cleaner look */
+  cursor: pointer;
+  border-radius: 8px; /* Adjust the value for the desired level of rounding */
+  font-size: inherit; /* Set font size to inherit from the parent */
+}
+
+.red-button {
+  background-color: red;
+  color: white; /* Optional: Set text color to white for better contrast */
+  padding: 5px 10px; /* Optional: Adjust padding for better appearance */
+  border: none; /*Optional: Remove border for a cleaner look */
+  cursor: pointer;
+  border-radius: 8px; /* Adjust the value for the desired level of rounding */
+  font-size: inherit; /* Set font size to inherit from the parent */
+}
+</style>

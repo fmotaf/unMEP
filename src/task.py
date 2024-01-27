@@ -83,3 +83,11 @@ def update(id):
             return redirect(url_for("task.index"))
     
     return render_template("task/update.html", task=task)
+
+@bp.route('/<int:id>/delete', methods=('POST',))
+def delete(id):
+    get_task(id)
+    db = get_db()
+    db.execute('DELETE FROM tasks WHERE id = ?', (id,))
+    db.commit()
+    return redirect(url_for('task.index'))

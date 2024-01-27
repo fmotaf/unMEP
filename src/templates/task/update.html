@@ -5,23 +5,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Management</title>
+    <title>Task Management - UPDATE TASK</title>
     <style>
         /* Styles remain the same as the previous example */
     </style>
 </head>
 <body>
 
-    <h2>Task Management</h2>
+    <h2>Task Management - UPDATE TASK</h2>
 
-    <form action="/create" method="post">
+    <form method="post">
         <input type="hidden" name="task_id" value="{{ task['id'] if task else 0 }}">
 
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" value="{{ task['title'] if task else '' }}" required>
 
         <label for="description">Description:</label>
-        <textarea id="description" name="description" required>{{ task['description'] if task else '' }}</textarea>
+        <textarea id="description" name="description" required>{{ task['description_'] if task else '' }}</textarea>
 
         <label for="progress">Progress:</label>
         <select id="progress" name="progress" required>
@@ -32,7 +32,6 @@
 
         <label for="due_date">Due Date:</label>
         <input type="date" id="due_date" name="due_date" value="{{ task['due_date'] if task else '' }}" required>
-
         <button type="submit">{{ 'Update Task' if task else 'Register Task' }}</button>
     </form>
 

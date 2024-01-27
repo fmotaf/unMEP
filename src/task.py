@@ -13,9 +13,9 @@ def index():
     tasks = db.execute(
         'SELECT t.id, title, description_, progress, due_date'
         ' FROM tasks t '
-        ' ORDER BY created DESC'
+        ' ORDER BY created_at DESC'
     ).fetchall()
-    return render_template("task_form.html", tasks=tasks)
+    return render_template("task/index.html", tasks=tasks)
 
 @bp.route("/create", methods=("GET","POST"))
 def create():
@@ -23,9 +23,9 @@ def create():
         title = request.form["title"]
         description = request.form["description"]
         progress = request.form["progress"]
-        due_date = request.form["description"]
+        due_date = request.form["due_date"]
         error = None
-
+        print(due_date)
         if not title:
             error = "Title is required"
         
@@ -39,13 +39,47 @@ def create():
                 (title, description, progress, due_date)
             )
             db.commit()
-            return redirect(url_for("task.create"))
-    
-    db = get_db()
-    tasks = db.execute(
-        'SELECT t.id, title, description_, progress, due_date'
-        ' FROM tasks t '
-        ' ORDER BY created DESC'
-    ).fetchall()
+            return redirect(url_for("task.index"))
 
-    return render_template("task_form.html", tasks=tasks)
+    return render_template("task/create.html")
+
+
+def get_task(id, check_author=True):
+    task = get_db().execute(
+        'SELECT t.id, title, description_, progress, due_date'
+        ' FROM tasks t WHERE t.id = ?',
+        (id,)
+    ).fetchone()
+
+    if task is None:
+        abort(404, f"Task de id {id} não existe.")
+
+    return task
+
+@bp.route("/<int:id>/update", methods = ("POST", "GET"))
+def update(id):
+    task = get_task(id)
+
+    if request.method == "POST":
+        title       = request.form["title"]
+        description = request.form["description"]
+        progress    = request.form["progress"]
+        due_date    = request.form["due_date"]
+        error       = None
+
+        if not title:
+            error = "É obrigatório ter título"
+        
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                'UPDATE tasks SET title = ?, description_ = ?, progress = ?, due_date = ?, updated_at = CURRENT_TIMESTAMP'
+                ' WHERE id = ?',
+                (title, description, progress, due_date, id)
+            )
+            db.commit()
+            return redirect(url_for("task.index"))
+    
+    return render_template("task/update.html", task=task)

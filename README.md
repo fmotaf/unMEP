@@ -20,11 +20,10 @@ Certifique-se de que tanto interpretador Python quanto gerenciador de pacotes Pi
 
 1. Clone o repositório:
 
-    ```bash
+```bash
     git clone https://github.com/fmotaf/unMEP.git
-    ```
+```
 
-(Sem Docker)
 2. Navegue até o diretório do projeto:
 ``` 
 	cd unMEP 

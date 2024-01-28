@@ -1,0 +1,20 @@
+[project]
+name = "src"
+version = "1.0.0"
+description = "Aplicativo gerenciador de tarefas, feito com Flask"
+dependencies = [
+    "flask",
+    "pytest",
+    "coverage"
+]
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["src"]

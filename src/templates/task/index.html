@@ -4,23 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Management</title>
+    <title>Gerenciador de tarefas</title>
     <style>
         /* Styles remain the same as the previous example */
     </style>
 </head>
 <body>
-
-    <h2>Task Management</h2>
-
-    <h3>Task List</h3>
-    <ul>
+    <h2>Gerenciador de tarefas</h2>
+    <h3>Lista de tarefas</h3>
+    <ul class="pretty-list">
         {% for task in tasks %}
-            <li>
-                <li>{{ task['title'] }} </li>
-                <li>{{ task['progress'] }}</li>
-                <li>{{ task['description_'] }}</li>
-                <li>Data de entregaZZ: {{ task['due_date'] }}</li>
+                <li>
+                    <b>{{ task['title'] }}</b> </br>
+                    {{ task['progress'] }} </br>
+                    {{ task['description_'] }} </br>
+                    Data de entrega: {{ task['due_date'] }} </br>
+                </li>
                 <a href="{{task['id']}}/update">
                     <button> Editar tarefa</button>
                 </a>
@@ -32,3 +31,22 @@
     </a>
 </body>
 </html>
+
+<style>
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+.pretty-list {
+  list-style: none;
+  padding: 0;
+}
+
+.pretty-list li {
+  background-color: #f2f2f2;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+</style>

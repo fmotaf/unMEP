@@ -5,14 +5,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Management - CREATE TASK</title>
+    <title>Criar tarefa</title>
     <style>
         /* Styles remain the same as the previous example */
     </style>
 </head>
 <body>
 
-    <h2>Task Management - CREATE TASK</h2>
+    <h2>Gerenciador de tarefas - CRIAR TAREFA</h2>
+
+    
+    {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+    {% endfor %}
+
 
     <form action="/create" method="post">
         <input type="hidden" name="task_id" value="{{ task['id'] if task else 0 }}">

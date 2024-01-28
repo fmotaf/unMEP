@@ -20,9 +20,11 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+
     @app.route("/hello")
     def hello():
-        return "HELLOOW"
+        return "Hello, World!"
+
 
     db.init_app(app)
     app.register_blueprint(task.bp)

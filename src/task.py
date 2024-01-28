@@ -7,6 +7,7 @@ from src.db import get_db
 
 bp = Blueprint("task", __name__)
 
+
 @bp.route("/")
 def index():
     db = get_db()
@@ -17,6 +18,7 @@ def index():
     ).fetchall()
     return render_template("task/index.html", tasks=tasks)
 
+
 @bp.route("/create", methods=("GET","POST"))
 def create():
     if request.method == "POST":
@@ -25,10 +27,11 @@ def create():
         progress = request.form["progress"]
         due_date = request.form["due_date"]
         error = None
-        print(due_date)
-        if not title:
-            error = "Title is required"
         
+        if not title:
+            error = "Obrigatorio ter titulo"
+            print(error)
+
         if error is not None:
             flash(error)
         else:
@@ -56,6 +59,7 @@ def get_task(id, check_author=True):
 
     return task
 
+
 @bp.route("/<int:id>/update", methods = ("POST", "GET"))
 def update(id):
     task = get_task(id)
@@ -68,7 +72,7 @@ def update(id):
         error       = None
 
         if not title:
-            error = "É obrigatório ter título"
+            error = "Obrigatorio ter titulo"
         
         if error is not None:
             flash(error)

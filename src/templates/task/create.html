@@ -23,30 +23,23 @@
     <form action="/create" method="post">
         <input type="hidden" name="task_id" value="{{ task['id'] if task else 0 }}">
 
-        <label for="title">Title:</label>
+        <label for="title">Titulo:</label>
         <input type="text" id="title" name="title" value="{{ task['title'] if task else '' }}" required>
 
-        <label for="description">Description:</label>
+        <label for="description">Descrição:</label>
         <textarea id="description" name="description" required>{{ task['description'] if task else '' }}</textarea>
 
-        <label for="progress">Progress:</label>
+        <label for="progress">Progresso:</label>
         <select id="progress" name="progress" required>
-            <option value="Pending" {% if task and task['status'] == 'Pending' %}selected{% endif %}>Pending</option>
-            <option value="In Progress" {% if task and task['status'] == 'In Progress' %}selected{% endif %}>In Progress</option>
-            <option value="Completed" {% if task and task['status'] == 'Completed' %}selected{% endif %}>Completed</option>
+            <option value="Pendente" {% if task and task['status'] == 'Pendente' %}selected{% endif %}>Pendente</option>
+            <option value="Em progresso" {% if task and task['status'] == 'Em progresso' %}selected{% endif %}>Em progresso</option>
+            <option value="Finalizada" {% if task and task['status'] == 'Finalizada' %}selected{% endif %}>Finalizada</option>
         </select>
 
-        <label for="due_date">Due Date:</label>
+        <label for="due_date">Data de finalização:</label>
         <input type="date" id="due_date" name="due_date" value="{{ task['due_date'] if task else '' }}" required>
-        <button type="submit">{{ 'Update Task' if task else 'Register Task' }}</button>
+        <button type="submit">{{ 'Atualizar tarefa' if task else 'Criar tarefa' }}</button>
     </form>
-
-    <h3>Task List</h3>
-    <ul>
-        {% for task in tasks %}
-            <li>{{ task['title'] }} - {{ task['status'] }} - {{ task['description'] }}</li>
-        {% endfor %}
-    </ul>
 
 </body>
 </html>

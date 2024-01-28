@@ -31,20 +31,20 @@
             
             <label for="progress">Progress:</label>
         <select id="progress" name="progress" required>
-            <option value="Pending" {% if task and task['status'] == 'Pending' %}selected{% endif %}>Pending</option>
-            <option value="In Progress" {% if task and task['status'] == 'In Progress' %}selected{% endif %}>In Progress</option>
-            <option value="Completed" {% if task and task['status'] == 'Completed' %}selected{% endif %}>Completed</option>
+            <option value="Pendente" {% if task and task['status'] == 'Pendente' %}selected{% endif %}>Pendente</option>
+            <option value="Em progresso" {% if task and task['status'] == 'Em progresso' %}selected{% endif %}>Em progresso</option>
+            <option value="Finalizada" {% if task and task['status'] == 'Finalizada' %}selected{% endif %}>Finalizada</option>
         </select>
             
             <label for="due_date">Due Date:</label>
             <input type="date" id="due_date" name="due_date" value="{{ task['due_date'] if task else '' }}" required>
-            <button class="blue-button" type="submit">{{ 'Update Task' if task else 'Register Task' }}</button>
+            <button class="blue-button" type="submit">{{ 'Atualizar tarefa' if task else 'Criar tarefa' }}</button>
         </form>
     </div>
     
     <div class="inline-block">
         <form action="{{ url_for('task.delete', id=task['id']) }}" method="post">
-            <input class="red-button" type="submit" value="Delete Task" onclick="return confirm('Tem certeza?');">
+            <input class="red-button" type="submit" value="Deletar tarefa" onclick="return confirm('Tem certeza?');">
         </form>
     </div>
 
